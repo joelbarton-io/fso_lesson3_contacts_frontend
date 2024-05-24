@@ -12,8 +12,8 @@ const create = async (newContact) => {
 };
 
 const remove = async (id) => {
-  const { status } = await axios.delete(`${BaseURL}/${id}`);
-  return status;
+  const { data } = await axios.delete(`${BaseURL}/${id}`);
+  return data;
 };
 
 const update = async (id, updatedContact) => {

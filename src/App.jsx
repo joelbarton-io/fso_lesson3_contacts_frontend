@@ -15,14 +15,17 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const initialRequest = () => {
-    (async () => {
+    const fetch = async () => {
       try {
+        console.log("making initial request inside useEffect...");
         const initialContactList = await db.getAll();
         setPersons(initialContactList);
       } catch (e) {
         alert(`something broke with initial data fetching operation`);
       }
-    }).call(null);
+    };
+
+    fetch();
   };
 
   useEffect(initialRequest, []);

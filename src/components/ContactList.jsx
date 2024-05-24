@@ -20,6 +20,7 @@ const ContactList = ({
     try {
       if (userConfirmDelete()) {
         await db.remove(id);
+        console.log("delete contact method on FE");
         // const status =
 
         setPersons((prevPersons) =>
@@ -31,12 +32,7 @@ const ContactList = ({
         }, 3000);
       }
     } catch (error) {
-      setErrorMessage(
-        `Contact: '${
-          persons.find((person) => person.id === id)[0]
-        }' failed to delete with id ${id}`
-      );
-      //   alert(error.message);
+      setErrorMessage(`Contact with id ${id} failed to delete`);
     }
   };
 
