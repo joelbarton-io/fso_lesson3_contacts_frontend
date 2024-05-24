@@ -14,6 +14,18 @@ export default function AddContact({
   const handleNameChange = (e) => setNewName(e.target.value);
   const createNewContact = async () => {
     try {
+      //   const existing = persons.find(
+      //     (existingPerson) => existingPerson.name === newName
+      //   );
+      //   if (existing) {
+      //     console.log("existing contact detected...");
+      //     console.log(existing.id);
+      //     // await db.update(existing.id);
+      //   } else {
+      //     console.log("new contact, proceed to create");
+      //   }
+
+      //   throw new Error("fake 🍆");
       const contact = await db.create({
         name: newName,
         number: newNumber,
@@ -63,6 +75,7 @@ export default function AddContact({
       }, 5000);
     }
   };
+
   const handleAddPerson = (e) => {
     e.preventDefault();
     const emptyInputFields = !newName.trim().length || !newNumber.trim().length;
@@ -84,6 +97,7 @@ export default function AddContact({
     if (existingContact) {
       console.log("existing contact detected");
       handleExistingContact(existingContact);
+      console.log("existing contact updated");
     } else {
       createNewContact();
     }
