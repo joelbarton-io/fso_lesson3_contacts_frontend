@@ -14,18 +14,6 @@ export default function AddContact({
   const handleNameChange = (e) => setNewName(e.target.value);
   const createNewContact = async () => {
     try {
-      //   const existing = persons.find(
-      //     (existingPerson) => existingPerson.name === newName
-      //   );
-      //   if (existing) {
-      //     console.log("existing contact detected...");
-      //     console.log(existing.id);
-      //     // await db.update(existing.id);
-      //   } else {
-      //     console.log("new contact, proceed to create");
-      //   }
-
-      //   throw new Error("fake 🍆");
       const contact = await db.create({
         name: newName,
         number: newNumber,
@@ -36,9 +24,12 @@ export default function AddContact({
       setSuccessMessage(`new contact: '${newName}' successfully created`);
       setTimeout(() => {
         setSuccessMessage(null);
-      }, 3000);
+      }, 5000);
     } catch (e) {
-      alert(`something broke -> ${e.message}`);
+      setErrorMessage(e.response.data.error);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
     }
   };
   const updateExistingContact = async (id) => {
@@ -56,17 +47,14 @@ export default function AddContact({
       );
       setNewName("");
       setNewNumber("");
-      setSuccessMessage(`existing contact: '${newName}' successfully updated`);
+      setSuccessMessage(`Updated Contact!`);
       setTimeout(() => {
         setSuccessMessage(null);
-      }, 3000);
+      }, 5000);
     } catch (error) {
-      console.log(error);
       setNewName("");
       setNewNumber("");
-      setErrorMessage(
-        `Contact: '${newName}' has already been removed from the server`
-      );
+      setErrorMessage(error.response.data.error);
       setPersons((prevPersons) =>
         prevPersons.filter((person) => person.id !== id)
       );
